@@ -64,8 +64,7 @@ class TestBatch(CNN):
         super(TestBatch, self).__init__(60, 160, self.max_captcha, char_set, model_save_dir)
 
     def convert_base64_to_image(self, base64_str):
-        """将 Base64 字符串转换为图像"""
-        image_data = base64.b64decode(base64_str)
+        image_data = base64.b64decode(base64_str)  #将 Base64 字符串转换为图像
         bytes_io = BytesIO(image_data)
         image = Image.open(bytes_io)
         return np.array(image)
