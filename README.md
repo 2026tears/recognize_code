@@ -1,5 +1,29 @@
 # cnn_captcha
 use CNN recognize captcha by tensorflow.  
+只是添加了sql_batch.py(根据test_batch和webserver_recognize_api改的)
+然后把字符集中添加了一个“.” 因为训练模型的时候 有报错：
+-->图片尺寸: 60 X 160
+-->验证码长度: 8
+-->验证码共36类 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+-->使用测试集为 sample/train/
+-->使验证集为 sample/test/
+Start model test
+Traceback (most recent call last):
+File "D:\github\cnn_captcha\train_model.py", line 274, in <module>
+main()
+File "D:\github\cnn_captcha\train_model.py", line 268, in main
+image_suffix, train_batch_size, test_batch_size, verify=False)
+File "D:\github\cnn_captcha\train_model.py", line 70, in init
+batch_x, batch_y = self.get_batch(0, size=160)
+File "D:\github\cnn_captcha\train_model.py", line 107, in get_batch
+batch_y[i, :] = self.text2vec(label) # 生成 oneHot
+File "D:\github\cnn_captcha\cnnlib\network.py", line 53, in text2vec
+idx = i * self.char_set_len + self.char_set.index(ch)
+ValueError: '.' is not in list
+进程已结束，退出代码为 1
+
+
+
 本项目针对字符型图片验证码，使用tensorflow实现卷积神经网络，进行验证码识别。  
 项目封装了比较通用的**校验、训练、验证、识别、API模块**，极大的减少了识别字符型验证码花费的时间和精力。 
   
